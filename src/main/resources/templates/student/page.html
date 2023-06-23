@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout::head">
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div class="container">
+  <h1>List Student</h1>
+  <p style="color: red" th:if="${message != null}"
+     th:text="${message}"></p>
+  <div style="margin-bottom: 10px; margin-left: 110px">
+    <a class="btn btn-secondary" th:href="@{/classes}">
+      Back to classes</a>
+    <a class="btn btn-primary" th:href="@{/students/create}">
+      Add new student</a>
+    <a class="btn btn-info" th:href="@{/students/sort_age_asc}">
+      Sort asc by age</a>
+    <a class="btn btn-info" th:href="@{/students/sort_age_desc}">
+      Sort desc by age</a>
+    <a class="btn btn-info" th:href="@{/students/sort_avg_asc}">
+      Sort asc by avg</a>
+    <a class="btn btn-info" th:href="@{/students/sort_avg_desc}">
+      Sort desc by avg</a>
+  </div>
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th style="width: 10%">STT</th>
+      <th>Name</th>
+      <th>Photo</th>
+      <th>Age</th>
+      <th>Gender</th>
+      <th>AvgPoint</th>
+      <th>Class</th>
+      <th colspan="2" style="width: 20%">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="s, status : ${students}">
+      <td th:text="${status.count}"></td>
+      <td th:text="${s.fullName}"></td>
+      <td><img th:src="@{'/image/' + ${s.cardPhoto}}" src="" alt=""
+               style="width: 150px; height: 150px"></td>
+      <td th:text="${s.age}"></td>
+      <td th:text="${s.gender}"></td>
+      <td th:text="${s.averagePoint}"></td>
+      <td th:text="${s.classes.name}"></td>
+      <td>
+        <a class="btn btn-warning"
+           th:href="@{/students/update/__${s.id}__}">Update
+        </a>
+      </td>
+      <td>
+        <a class="btn btn-danger"
+           th:href="@{/students/delete/__${s.id}__}">Delete
+        </a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <div>
+    <a class="btn btn-primary" th:if="${students.hasPrevious()}"
+       th:href="@{/students/page(page=${students.number - 1})}">Previous</a>
+    <span th:text="${students.number + 1}"></span> |
+    <span th:text="${students.totalPages}"></span>
+    <a class="btn btn-primary"  th:if="${students.hasNext()}"
+       th:href="@{/students/page(page=${students.number + 1})}">Next</a>
+  </div>
+</div>
+</body>
+</html>

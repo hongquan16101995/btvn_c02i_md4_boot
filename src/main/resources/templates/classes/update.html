@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout::head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <h1 style="text-align: center">Update classes</h1>
+    <form style="width: 500px" th:object="${class}" method="post">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" th:field="*{name}"
+                   id="name" placeholder="Enter name classes">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <a class="btn btn-secondary" th:href="@{/classes}">Back</a>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout::head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <h1 style="text-align: center">Create students</h1>
+    <form style="width: 500px" th:object="${student}" method="post"
+          enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" th:field="*{fullName}"
+                   id="name" placeholder="Enter full name">
+            <div th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}">Name Error</div>
+        </div>
+        <div class="form-group">
+            <label for="age">Age</label>
+            <input type="text" class="form-control" th:field="*{age}"
+                   id="age" placeholder="Enter age">
+        </div>
+        <div class="form-group">
+            <label>Gender</label><br>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" th:field="*{gender}"
+                       value="Nam" id="defaultCheck1">
+                <label class="form-check-label" for="defaultCheck1">
+                    Nam
+                </label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" th:field="*{gender}"
+                       value="Nữ" id="defaultCheck2">
+                <label class="form-check-label" for="defaultCheck2">
+                    Nữ
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="avg">Average point</label>
+            <input type="text" class="form-control" th:field="*{averagePoint}"
+                   id="avg" placeholder="Enter average point">
+        </div>
+        <div class="form-group">
+            <label for="image">Photo card</label>
+            <input type="file" class="form-control-file"
+                   id="image" th:field="*{image}">
+        </div>
+        <div class="form-group">
+            <label for="classes">Classes</label>
+            <select class="form-control"
+                    id="classes" th:field="*{classes}">
+                <option th:each="c : ${classes}"
+                        th:value="${c.id}" th:text="${c.name}">
+                </option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <a class="btn btn-secondary" th:href="@{/students}">Back</a>
+    </form>
+</div>
+</body>
+</html>

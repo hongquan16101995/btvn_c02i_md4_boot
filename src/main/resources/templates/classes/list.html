@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout::head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <h1>List Classes</h1>
+    <p style="color: red" th:if="${message != null}"
+       th:text="${message}"></p>
+    <div style="margin-bottom: 10px; margin-left: 130px">
+        <a class="btn btn-secondary" th:href="@{/students}">
+            Back to student</a>
+        <a class="btn btn-primary" th:href="@{/classes/create}">
+            Add new classes</a>
+        <a class="btn btn-info" th:href="@{/classes/sort_asc}">
+            Sort asc by number student</a>
+        <a class="btn btn-info" th:href="@{/classes/sort_desc}">
+            Sort desc by number student</a>
+        <a class="btn btn-info" th:href="@{/classes/avg}">
+            Display avg point</a>
+    </div>
+    <table th:if="${classesDTO == null}" style="width: 500px"
+           class="table table-hover">
+        <thead>
+        <tr>
+            <th style="width: 10%">STT</th>
+            <th>Name</th>
+            <th style="width: 25%">Quantity</th>
+            <th style="width: 10%">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="c, cs : ${classes}">
+            <td th:text="${cs.count}"></td>
+            <td th:text="${c.name}"></td>
+            <td th:text="${c.quantity}"></td>
+            <td>
+                <a class="btn btn-warning"
+                   th:href="@{/classes/update/__${c.id}__}">Update
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <table th:if="${classesDTO != null}" style="width: 500px"
+           class="table table-hover">
+        <thead>
+        <tr>
+            <th style="width: 10%">STT</th>
+            <th>Name</th>
+            <th style="width: 15%">Quantity</th>
+            <th style="width: 15%">Avg</th>
+            <th style="width: 10%">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="c, cs : ${classesDTO}">
+            <td th:text="${cs.count}"></td>
+            <td th:text="${c.classes.name}"></td>
+            <td th:text="${c.classes.quantity}"></td>
+            <td th:text="${c.avg}"></td>
+            <td>
+                <a class="btn btn-warning"
+                   th:href="@{/classes/update/__${c.classes.id}__}">Update
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
